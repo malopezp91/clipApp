@@ -4,12 +4,12 @@ import java.util.List;
 
 import com.clip.model.Transaction;
 
-interface TransactionService {
-    Transaction addTransaction();
+public interface TransactionService {
+    Transaction addTransaction(String[]args);
 
-    Transaction showTransaction();
+    Transaction showTransaction(String[]args);
 
-    List<Transaction> listTransactions();
+    List<Transaction> listTransactions(String[]args);
 
-    String sumTransactions(); 
+    String sumTransactions(String[]args); 
 }

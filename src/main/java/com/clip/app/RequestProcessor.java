@@ -1,6 +1,6 @@
 package com.clip.app;
 
-interface RequestProcessor {
+public interface RequestProcessor {
     void processRequest(String[] args);
 
 }
