@@ -14,7 +14,7 @@ public class TransactionSerializer implements JsonSerializer<Transaction>{
 	public JsonElement serialize(Transaction src, Type typeOfSrc, JsonSerializationContext context) {
 		JsonObject json = new JsonObject();
 		
-		json.addProperty("transaction_id", src.getTransactionId());
+		json.addProperty("transaction_id", src.getTransactionId().getValue());
 		json.addProperty("amount", src.getAmount());
 		json.addProperty("description", src.getDescription());
 		json.addProperty("date", src.getDate().toString());

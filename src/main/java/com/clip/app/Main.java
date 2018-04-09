@@ -4,7 +4,9 @@ import com.clip.app.persistance.TransactionPersistance;
 import com.clip.app.persistance.TransactionPersistanceInFileSystemImpl;
 import com.clip.app.serializer.TransactionDeserializer;
 import com.clip.app.serializer.TransactionSerializer;
+import com.clip.app.serializer.TransactionSummatorySerializer;
 import com.clip.model.Transaction;
+import com.clip.model.TransactionSummatory;
 import com.clip.transaction.TransactionService;
 import com.clip.transaction.TransactionServiceImpl;
 import com.google.gson.Gson;
@@ -35,6 +37,7 @@ class SerializationProvider implements Provider<Gson>{
 		
 		builder.registerTypeAdapter(Transaction.class, new TransactionDeserializer());
 		builder.registerTypeAdapter(Transaction.class, new TransactionSerializer());
+		builder.registerTypeAdapter(TransactionSummatory.class, new TransactionSummatorySerializer());
 		
 		return builder.create();
 	}

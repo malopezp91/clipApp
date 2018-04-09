@@ -1,19 +1,19 @@
 package com.clip.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Transaction{
 	
-	private String transactionId;
+	private TransactionId transactionId;
     private double amount;
     private String description;
-    private Date date;
+    private LocalDate date;
     private UserId userId;
     
     public Transaction(){
     	super();
     }
-    public Transaction withTransactionId(String transactionId){
+    public Transaction withTransactionId(TransactionId transactionId){
     	this.transactionId = transactionId;
     	return this;
     }
@@ -28,7 +28,7 @@ public class Transaction{
     	return this;
     }
     
-    public Transaction withDate(Date date){
+    public Transaction withDate(LocalDate date){
     	this.date = date;
     	return this;
     }
@@ -38,7 +38,7 @@ public class Transaction{
     	return this;
     }
     
-    public String getTransactionId(){
+    public TransactionId getTransactionId(){
     	return this.transactionId;
     }
     
@@ -50,7 +50,7 @@ public class Transaction{
     	return this.description;
     }
     
-    public Date getDate(){
+    public LocalDate getDate(){
     	return this.date;
     }
     

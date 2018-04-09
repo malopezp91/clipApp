@@ -3,6 +3,7 @@ package com.clip.transaction;
 import java.util.List;
 
 import com.clip.model.Transaction;
+import com.clip.model.TransactionSummatory;
 
 public interface TransactionService {
     Transaction addTransaction(String[]args);
@@ -11,5 +12,5 @@ public interface TransactionService {
 
     List<Transaction> listTransactions(String[]args);
 
-    String sumTransactions(String[]args); 
+    TransactionSummatory sumTransactions(String[]args); 
 }
