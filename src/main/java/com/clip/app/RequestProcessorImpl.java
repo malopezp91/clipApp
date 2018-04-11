@@ -18,28 +18,21 @@ public class RequestProcessorImpl implements RequestProcessor {
 	Gson gson;
 
 	public void processRequest(String[] args) {
-		
-		//Add validation to input!
-		
+
+		// Add validation to input!
+
 		String verb = args[1];
 
 		switch (verb) {
 		case Constants.ADD_TRANSACTION:
-			try{
-				System.out.println("RESULT: " + gson.toJson(transactionSvc.addTransaction(args)));
-			}catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-			break;
-		case Constants.SHOW_TRANSACTION:
 			try {
-				System.out.println("RESULT: " + gson.toJson(transactionSvc.showTransaction(args)));
+				System.out.println("RESULT: " + gson.toJson(transactionSvc.addTransaction(args)));
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
 			break;
 		case Constants.LIST_TRANSACTION:
-			try{
+			try {
 				List<Transaction> aaa = transactionSvc.listTransactions(args);
 				System.out.println("RESULT: " + gson.toJson(aaa));
 			} catch (Exception e) {
@@ -48,13 +41,26 @@ public class RequestProcessorImpl implements RequestProcessor {
 			break;
 		case Constants.SUM_TRANSACTIONS:
 			try {
-				System.out.println("RESULT" + gson.toJson(transactionSvc.sumTransactions(args)));
+				System.out.println("RESULT: " + gson.toJson(transactionSvc.sumTransactions(args)));
 			} catch (Exception e) {
 				System.out.println(e);
 			}
 
 			break;
 		default:
+			// As no verb is included, we need to verify the second parameter is
+			// an transactionId
+			try {
+				if (args[1].length() == 36) {
+					System.out.println("RESULT: " + gson.toJson(transactionSvc.showTransaction(args)));
+				}
+				else
+				{
+					System.out.println("ERROR: UNSUPPORTED OPERATION");
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
 			break;
 		}
 

@@ -46,8 +46,6 @@ public class TransactionPersistanceInFileSystemImpl implements TransactionPersis
 			return transaction;
 
 		} catch (Exception e) {
-			System.out.println("Error Writing file");
-			System.out.println(e.getMessage());
 			throw new RuntimeException("ERORR: TRANSACTION COULD NOT BE SAVED");
 		}
 
@@ -55,12 +53,11 @@ public class TransactionPersistanceInFileSystemImpl implements TransactionPersis
 
 	@Override
 	public Transaction getTransactionByUserId(UserId userId, TransactionId transactionId) {
-		System.out.println("Retrieve transaction " + transactionId.getValue() + " for userId " + userId.getValue());
 
-		if (!transactionFileExists(userId, transactionId)){
+		if (!transactionFileExists(userId, transactionId)) {
 			throw new RuntimeException("ERROR: TRANSACTION NOT FOUND");
 		}
-		
+
 		try {
 			String fileName = TRANSACTON_DIRECTORY + DIRECTORY_SEPARATOR + userId.getValue() + DIRECTORY_SEPARATOR
 					+ transactionId.getValue() + FILE_EXTENSION;
@@ -76,21 +73,19 @@ public class TransactionPersistanceInFileSystemImpl implements TransactionPersis
 
 	@Override
 	public List<Transaction> getAllTransactionsByUserId(UserId userId) {
-		System.out.println("Retrieve all transactions for " + userId.getValue());
 
 		List<Transaction> transactions = new ArrayList<>();
-		
-		if (!userFolderContainsTransactions(userId)){
+
+		if (!userFolderContainsTransactions(userId)) {
 			return transactions;
 		}
-		
+
 		File userFolder = new File(TRANSACTON_DIRECTORY + DIRECTORY_SEPARATOR + userId.getValue());
 
 		File[] listOfTransactions = userFolder.listFiles();
 
 		Arrays.stream(listOfTransactions).forEach((fileName) -> {
 
-			System.out.println(fileName);
 			try {
 
 				Transaction transaction = readTransactionFile(fileName);
@@ -102,9 +97,9 @@ public class TransactionPersistanceInFileSystemImpl implements TransactionPersis
 			}
 
 		});
-		
+
 		transactions.sort(new TransactionComparatorByLocalDate());
-		
+
 		return transactions;
 	}
 
@@ -124,19 +119,20 @@ public class TransactionPersistanceInFileSystemImpl implements TransactionPersis
 			userDirectory.mkdir();
 		}
 	}
-	
-	private boolean transactionFileExists(UserId userId, TransactionId transactionId){
-		File transactionFile = new File(TRANSACTON_DIRECTORY + DIRECTORY_SEPARATOR + userId.getValue() + DIRECTORY_SEPARATOR + transactionId.getValue() + FILE_EXTENSION);
+
+	private boolean transactionFileExists(UserId userId, TransactionId transactionId) {
+		File transactionFile = new File(TRANSACTON_DIRECTORY + DIRECTORY_SEPARATOR + userId.getValue()
+				+ DIRECTORY_SEPARATOR + transactionId.getValue() + FILE_EXTENSION);
 		return transactionFile.exists();
 	}
-	
-	private boolean userFolderContainsTransactions(UserId userId){
+
+	private boolean userFolderContainsTransactions(UserId userId) {
 		File userDirectory = new File(TRANSACTON_DIRECTORY + DIRECTORY_SEPARATOR + userId.getValue());
-		
-		if (userDirectory.listFiles() == null){
+
+		if (userDirectory.listFiles() == null) {
 			return false;
-		}
-		else return true;
+		} else
+			return true;
 	}
 
 	private Transaction readTransactionFile(File file) throws IOException {

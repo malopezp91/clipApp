@@ -34,7 +34,7 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public Transaction showTransaction(String[] args) {
 		UserId userId = new UserId(args[0]);
-		TransactionId transactionId = new TransactionId(args[2]);
+		TransactionId transactionId = new TransactionId(args[1]);
 
 		return transactionPersistance.getTransactionByUserId(userId, transactionId);
 	}
